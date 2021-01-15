@@ -18,13 +18,18 @@ class GoogleAuth extends React.Component {
         .then(() => {
           this.auth = window.gapi.auth2.getAuthInstance();
           this.setState({ isSignedIn: this.auth.isSignedIn.get() });
-          console.log(this.state.isSignedIn);
-          console.log(this.auth);
+
+          // chrome의 콘솔창에서 gapi.auth2.getAuthInstance().isSignedIn 을 입력하면 __proto__ 내에 listen: ƒ (a) 을 통해서 들을수 있다.
+          this.auth.isSignedIn.listen(this.onAuthChange);
 
           //isSignedIn.get() 로그인 여부를 boolean 으로 리턴
         });
     });
   }
+
+  onAuthChange = () => {
+    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+  };
 
   renderAuthButton() {
     if (this.state.isSignedIn === null) {
