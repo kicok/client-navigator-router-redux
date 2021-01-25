@@ -17,9 +17,10 @@ class StreamCreate extends React.Component {
   // 아래의 방식으로하면 모든 속성을 한번에 꺼내서 추가한다.
   renderInput = ({ input, label, meta }) => {
     // this키워드를 인지하기 위해서 arrow 방식으로 변경함
-    console.log(meta);
+
+    const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
-      <div className="field">
+      <div className={className}>
         <label>{label}</label>
         <input {...input} placeholder={label} autoComplete="off" />
         {this.renderError(meta)}
@@ -47,7 +48,7 @@ class StreamCreate extends React.Component {
     return (
       <form
         onSubmit={this.props.handleSubmit(this.onSubmit)}
-        className="ui form"
+        className="ui form error"
       >
         <Field name="title" component={this.renderInput} label="Enter Title" />
         <Field
