@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
 
 //class기반의 컴포턴트에 도우미 메서드가 많아서 코드를 잘 구성할수 있기 때문에 class 로 변경함
 class StreamCreate extends React.Component {
