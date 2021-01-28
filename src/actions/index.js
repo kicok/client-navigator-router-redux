@@ -22,8 +22,9 @@ export const signOut = () => {
   };
 };
 
-export const createStream = (formValues) => async (dispatch) => {
-  const response = await streams.post('/streams', formValues);
+export const createStream = (formValues) => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+  const response = await streams.post('/streams', { ...formValues, userId }); //객체에 userId를 추가.
 
   dispatch({ type: CREATE_STREAM, payload: response.data });
 };
