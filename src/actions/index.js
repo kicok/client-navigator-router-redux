@@ -45,9 +45,11 @@ export const fetchStream = (id) => async (dispatch) => {
 };
 
 export const editStream = (id, formValues) => async (dispatch) => {
-  const response = await streams.put(`/streams/${id}`, formValues);
+  //const response = await streams.put(`/streams/${id}`, formValues); //streams.put(..) 방식은 모든 속성을 수정하므로 없는 속성값은 지워짐
+  const response = await streams.patch(`/streams/${id}`, formValues); // 값이 있는 속성값만 변경됨.
 
   dispatch({ type: EDIT_STREAM, payload: response.data });
+  history.push('/');
 };
 
 export const deleteStream = (id) => async (dispatch) => {
