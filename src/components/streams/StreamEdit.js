@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import StreamForm from './StreamForm';
@@ -11,7 +12,7 @@ class StreamEdit extends React.Component {
 
   onSubmit = (formValues) => {
     console.log(formValues);
-    this.props.editStream(formValues);
+    // this.props.editStream(formValues);
   };
 
   render() {
@@ -22,8 +23,10 @@ class StreamEdit extends React.Component {
       <div>
         <h3>Edit a Stream</h3>
         <StreamForm
-          initialValues={this.props.stream}
+          // initialValues={this.props.stream} // title, description, userId, id 등의 모든값이 전달됨
+
           // initialValues 속성을 이용하여 reduxForm의 초기값을 전달하여 화면에 보여줄수 있다.
+          initialValues={_.pick(this.props.stream, 'title', 'description')} // title, description 값만 선택하여 값이 전달됨
           onSubmit={this.onSubmit}
         />
       </div>
