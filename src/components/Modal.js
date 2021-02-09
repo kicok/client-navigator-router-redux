@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import history from '../history';
 
-const Modal = (porps) => {
+const Modal = (props) => {
   return ReactDOM.createPortal(
     <div
       onClick={() => history.push('/')}
@@ -14,14 +14,9 @@ const Modal = (porps) => {
         // 결국 바탕화면을 클릭할때만  history.push('/')가 실행된다.
         className="ui standard modal visible active"
       >
-        <div className="header">Delete Stream</div>
-        <div className="content">
-          Are you suer you want to delete this stream?
-        </div>
-        <div className="actions">
-          <button className="ui primary button">Delete</button>
-          <button className="ui button">Cancel</button>
-        </div>
+        <div className="header">{props.title}</div>
+        <div className="content">{props.content}</div>
+        <div className="actions">{props.actions}</div>
       </div>
     </div>,
     document.querySelector('#modal')
