@@ -8,9 +8,35 @@ class StreamShow extends React.Component {
     super(props);
     this.videoRef = React.createRef();
   }
+
   componentDidMount() {
-    this.props.fetchStream(this.props.match.params.id);
+    const { id } = this.props.match.params;
+    this.props.fetchStream(id);
+    this.buildPlayer();
   }
+
+  // componentDidMount에서 buildPlayer 가 정상적으로 실행되지 않았을 경우 한번더 buildPlayer실행을 시도한다.
+  componentDidUpdate() {
+    this.buildPlayer();
+  }
+
+  buildPlayer() {
+    // this.player 가 이미 있다면 return으로 멈추고 없는 경우에만 buildPlayer() 실행됨
+    // this.props.stream 이 없다면 무조건 return 으로 멈춤
+    if (this.playe || !this.props.stream) {
+      return;
+    }
+
+    const { id } = this.props.match.params;
+    this.player = flv.createPlayer({
+      type: 'flv',
+      url: `http://localhost:8000/live/${id}.flv`,
+    });
+    this.player.attachMediaElement(this.videoRef.current);
+    this.player.load();
+    //this.player.play(); // 자동재생
+  }
+
   render() {
     if (!this.props.stream) {
       return <div>Loading...</div>;
