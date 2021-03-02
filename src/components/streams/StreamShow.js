@@ -20,6 +20,10 @@ class StreamShow extends React.Component {
     this.buildPlayer();
   }
 
+  componentWillUnmount() {
+    this.player.destroy();
+  }
+
   buildPlayer() {
     // this.player 가 이미 있다면 return으로 멈추고 없는 경우에만 buildPlayer() 실행됨
     // this.props.stream 이 없다면 무조건 return 으로 멈춤
